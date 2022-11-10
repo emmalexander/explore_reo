@@ -1,3 +1,4 @@
+import 'package:explore_reo/providers/data_provider.dart';
 import 'package:explore_reo/providers/theme_provider.dart';
 import 'package:explore_reo/screens/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ThemeChanger()),
+        ChangeNotifierProvider(
+          create: (_) => ThemeChanger(),
+        ),
+        ChangeNotifierProvider(create: (_) => DataProvider()),
       ],
       child: ScreenUtilInit(
           minTextAdapt: true,

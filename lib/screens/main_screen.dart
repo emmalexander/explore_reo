@@ -1,5 +1,11 @@
+import 'dart:developer';
+
 import 'package:explore_reo/consts/app_colors.dart';
+import 'package:explore_reo/models/data_model.dart';
+import 'package:explore_reo/providers/data_provider.dart';
 import 'package:explore_reo/providers/theme_provider.dart';
+import 'package:explore_reo/services/api_sevices.dart';
+import 'package:explore_reo/widgets/aphabet_scroll_widget.dart';
 import 'package:explore_reo/widgets/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +24,28 @@ class _MainScreenState extends State<MainScreen> {
   late final TextEditingController _searchTextController;
   late final FocusNode _focusNode;
 
+  List<String?> countryList = [];
+  //List<String?> get getCountryList => countryList;
+
   @override
   void initState() {
     super.initState();
     _searchTextController = TextEditingController();
     _focusNode = FocusNode();
+    getData();
+
+    //countryList.add(DataProvider().getCountriesList[0]);
+  }
+
+  void getData() async {
+    final dataProvider = DataProvider();
+    List<DataModel> list = await dataProvider.fetchCountries();
+
+    //countryList = list.cast<String>();
+    for (var e in list) {
+      countryList.add(e.name!.common);
+    }
+    log('The list as String: ${countryList[2]!}');
   }
 
   @override
@@ -37,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final countryProv = Provider.of<DataProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor(context).scaffoldColor,
@@ -47,15 +71,15 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               Text(
                 'Explore',
-                style: GoogleFonts.pacifico(
-                    fontSize: 20.sp,
+                style: GoogleFonts.elsieSwashCaps(
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.bold,
-                    color: AppColor(context).textColor),
+                    color: AppColor(context).exploreColor),
               ),
               Text(
                 '.',
-                style: GoogleFonts.pacifico(
-                    fontSize: 20.sp,
+                style: GoogleFonts.elsieSwashCaps(
+                    fontSize: 25.sp,
                     fontWeight: FontWeight.bold,
                     color: const Color(0xFFFF6C00)),
               ),
@@ -153,6 +177,25 @@ class _MainScreenState extends State<MainScreen> {
                 ],
               ),
               SizedBox(height: 10.h),
+              // FutureBuilder(
+              //     future: countryProv.fetchCountries(),
+              //     builder: (context, snapshot) {
+              //       if (snapshot.connectionState == ConnectionState.waiting) {
+              //         return const Center(child: CircularProgressIndicator());
+              //       } else if (snapshot.hasError) {
+              //         log(snapshot.error.toString());
+              //       } else if (snapshot.data == null) {
+              //         log('snapshot data is null');
+              //       }
+              //return
+              Flexible(
+                child: AlphabetScrollWidget(
+                  items: countryList,
+                  onClickedItem: (String value) {},
+                ),
+              )
+              //;
+              //})
             ],
           ),
         ),

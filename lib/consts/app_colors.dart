@@ -16,6 +16,8 @@ class AppColor {
       isDark ? const Color(0xFF000F24) : const Color(0xFFFFFFFF);
   static const Color borderColor = Color(0xFFA9B8D4);
   Color get textColor => isDark ? Colors.white : Colors.black;
+  Color get exploreColor =>
+      isDark ? Colors.grey.shade200 : const Color(0xFF001637);
   Color get hinTextColor =>
       isDark ? Colors.grey.shade200 : Colors.grey.shade500;
 }
