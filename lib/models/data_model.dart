@@ -8,7 +8,7 @@ class DataModel {
   bool? independent;
   //String? status;
   bool? unMember;
-  Currencies? currencies;
+  Map<String, dynamic>? currencies;
   Idd? idd;
   List<String>? capital;
   //List<String>? altSpellings;
@@ -29,7 +29,7 @@ class DataModel {
   List<String>? continents;
   Flags? flags;
   Flags? coatOfArms;
-  //String? startOfWeek;
+  String? startOfWeek;
   //CapitalInfo? capitalInfo;
   //PostalCode? postalCode;
 
@@ -64,7 +64,7 @@ class DataModel {
     this.continents,
     this.flags,
     this.coatOfArms,
-    //this.startOfWeek,
+    this.startOfWeek,
     //this.capitalInfo,
     //this.postalCode,
   });
@@ -79,9 +79,10 @@ class DataModel {
     independent = json['independent'];
     //status = json['status'];
     unMember = json['unMember'];
-    currencies = json['currencies'] != null
-        ? Currencies.fromJson(json['currencies'])
-        : null;
+    currencies = json['currencies'];
+    // currencies = json['currencies'] != null
+    //     ? Currencies.fromJson(json['currencies'])
+    //     : null;
     idd = json['idd'] != null ? Idd.fromJson(json['idd']) : null;
     capital = json['capital'] == null
         ? []
@@ -117,7 +118,7 @@ class DataModel {
     flags = json['flags'] != null ? Flags.fromJson(json['flags']) : null;
     coatOfArms =
         json['coatOfArms'] != null ? Flags.fromJson(json['coatOfArms']) : null;
-    // startOfWeek = json['startOfWeek'];
+    startOfWeek = json['startOfWeek'];
     // capitalInfo = json['capitalInfo'] != null
     //     ? CapitalInfo.fromJson(json['capitalInfo'])
     //     : null;
@@ -146,7 +147,7 @@ class DataModel {
     //data['status'] = status;
     data['unMember'] = unMember;
     if (currencies != null) {
-      data['currencies'] = currencies!.toJson();
+      data['currencies'] = currencies!;
     }
     if (idd != null) {
       data['idd'] = idd!.toJson();
@@ -184,7 +185,7 @@ class DataModel {
     if (coatOfArms != null) {
       data['coatOfArms'] = coatOfArms!.toJson();
     }
-    // data['startOfWeek'] = startOfWeek;
+    data['startOfWeek'] = startOfWeek;
     // if (capitalInfo != null) {
     //   data['capitalInfo'] = capitalInfo!.toJson();
     // }

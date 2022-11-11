@@ -20,4 +20,6 @@ class AppColor {
       isDark ? Colors.grey.shade200 : const Color(0xFF001637);
   Color get hinTextColor =>
       isDark ? Colors.grey.shade200 : Colors.grey.shade500;
+  Color get invisibilityColor =>
+      isDark ? const Color(0xFF000711) : const Color(0xFF757575);
 }

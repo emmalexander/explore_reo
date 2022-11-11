@@ -18,6 +18,8 @@ class DetailScreen extends StatelessWidget {
     ];
 
     Map languages = model.languages!;
+    Map currencies = model.currencies!;
+    // Map currencyNames = currencies.values.toString() as Map;
 
     return Scaffold(
       backgroundColor: AppColor(context).scaffoldColor,
@@ -73,10 +75,10 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Population: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
-                    text: '${model.population}',
+                    text: model.population!.toString(),
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w100,
                   ),
@@ -88,7 +90,7 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Region: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
                     text: '${model.region}',
@@ -103,13 +105,15 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Capital: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
-                    text: model.capital
-                        .toString()
-                        .replaceAll('[', '')
-                        .replaceAll(']', ''),
+                    text: model.capital!.toString().isEmpty
+                        ? ''
+                        : model.capital
+                            .toString()
+                            .replaceAll('[', '')
+                            .replaceAll(']', ''),
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w100,
                   ),
@@ -121,7 +125,7 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Official language: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
                     text: languages.values.toList().first ?? 'None',
@@ -136,7 +140,7 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Independence: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
                     text: model.independent! ? 'Yes' : 'No',
@@ -151,7 +155,7 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Sub region: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
                     text: model.subregion!,
@@ -166,7 +170,7 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Area: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
                     text: '${model.area.toString()} km2',
@@ -181,10 +185,28 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Currency: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
-                    text: 'Euro',
+                    text: currencies.values
+                        .toList()
+                        .first['name']
+                        .toString(), //currencies.values.toString(),
+                    fontSize: 16.sp,
+                    //fontWeight: FontWeight.w200,
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.h),
+              Row(
+                children: [
+                  TextWidget(
+                    text: 'Start of week: ',
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
+                  TextWidget(
+                    text: model.startOfWeek!,
                     fontSize: 16.sp,
                     //fontWeight: FontWeight.w200,
                   ),
@@ -196,7 +218,7 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Time zone: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
                     text: '	${model.timezones![0]}',
@@ -211,10 +233,12 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Dialling code: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
-                    text: '${model.idd!.root}${model.idd!.suffixes![0]}',
+                    text: model.idd == null
+                        ? ''
+                        : '${model.idd!.root}${model.idd!.suffixes![0]}',
                     fontSize: 16.sp,
                     //fontWeight: FontWeight.w200,
                   ),
@@ -226,7 +250,7 @@ class DetailScreen extends StatelessWidget {
                   TextWidget(
                     text: 'Driving side: ',
                     fontSize: 17.sp,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w800,
                   ),
                   TextWidget(
                     text: '${model.car!.side}',

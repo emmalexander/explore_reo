@@ -152,25 +152,57 @@ class _MainScreenState extends State<MainScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.h),
-                      //width: 65.w,
-                      height: 40.h,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: AppColor.borderColor.withOpacity(.5)),
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            CupertinoIcons.globe,
-                            color: AppColor(context).textColor,
-                          ),
-                          SizedBox(width: 4.w),
-                          const TextWidget(text: 'EN')
-                        ],
+                    GestureDetector(
+                      onTap: () {
+                        showModalBottomSheet(
+                            context: context,
+                            builder: (context) {
+                              return BottomSheet(
+                                  onClosing: () {},
+                                  builder: (context) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                          color: AppColor(context)
+                                              .invisibilityColor),
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                                topRight: Radius.circular(20),
+                                                topLeft: Radius.circular(20))),
+                                        padding: const EdgeInsets.only(
+                                            top: 10,
+                                            bottom: 25,
+                                            left: 10,
+                                            right: 10),
+                                        child: Column(
+                                          children: [Row()],
+                                        ),
+                                      ),
+                                    );
+                                  });
+                            });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10.h),
+                        //width: 65.w,
+                        height: 40.h,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1,
+                                color: AppColor.borderColor.withOpacity(.5)),
+                            borderRadius: BorderRadius.circular(5.r)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              CupertinoIcons.globe,
+                              color: AppColor(context).textColor,
+                            ),
+                            SizedBox(width: 4.w),
+                            const TextWidget(text: 'EN')
+                          ],
+                        ),
                       ),
                     ),
                     Container(
@@ -266,7 +298,8 @@ class _MainScreenState extends State<MainScreen> {
                 idd: suggestionList[index].idd,
                 car: suggestionList[index].car,
                 independent: suggestionList[index].independent,
-                subregion: suggestionList[index].subregion);
+                subregion: suggestionList[index].subregion,
+                startOfWeek: suggestionList[index].startOfWeek);
             return CustomTile(
               image: searchedCountry.flags!.png!,
               title: searchedCountry.name!.common!,
