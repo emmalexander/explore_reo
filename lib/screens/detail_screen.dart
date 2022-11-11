@@ -17,6 +17,8 @@ class DetailScreen extends StatelessWidget {
       model.maps!.openStreetMaps,
     ];
 
+    Map languages = model.languages!;
+
     return Scaffold(
       backgroundColor: AppColor(context).scaffoldColor,
       appBar: AppBar(
@@ -122,7 +124,7 @@ class DetailScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   TextWidget(
-                    text: model.languages!.eng ?? 'None',
+                    text: languages.values.toList().first ?? 'None',
                     fontSize: 16.sp,
                     //fontWeight: FontWeight.w200,
                   ),
@@ -147,12 +149,12 @@ class DetailScreen extends StatelessWidget {
               Row(
                 children: [
                   TextWidget(
-                    text: 'Sub: ',
+                    text: 'Sub region: ',
                     fontSize: 17.sp,
                     fontWeight: FontWeight.w500,
                   ),
                   TextWidget(
-                    text: model.independent! ? 'Yes' : 'No',
+                    text: model.subregion!,
                     fontSize: 16.sp,
                     //fontWeight: FontWeight.w200,
                   ),

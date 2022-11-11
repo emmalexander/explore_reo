@@ -13,8 +13,8 @@ class DataModel {
   List<String>? capital;
   //List<String>? altSpellings;
   String? region;
-  //String? subregion;
-  Languages? languages;
+  String? subregion;
+  Map<String, dynamic>? languages;
   Translations? translations;
   //List<double>? latlng;
   //bool? landlocked;
@@ -48,7 +48,7 @@ class DataModel {
     this.capital,
     //this.altSpellings,
     this.region,
-    //this.subregion,
+    this.subregion,
     this.languages,
     this.translations,
     //this.latlng,
@@ -88,10 +88,11 @@ class DataModel {
         : List<String>.from(json['capital'].map((x) => x));
     //altSpellings = json['altSpellings'].cast<String>();
     region = json['region'];
-    //subregion = json['subregion'];
-    languages = json['languages'] != null
-        ? Languages.fromJson(json['languages'])
-        : null;
+    subregion = json['subregion'];
+    languages = json['languages'];
+    // languages = json['languages'] != null
+    //     ? Languages.fromJson(json['languages'])
+    //     : null;
     translations = json['translations'] != null
         ? Translations.fromJson(json['translations'])
         : null;
@@ -153,9 +154,9 @@ class DataModel {
     data['capital'] = capital;
     //data['altSpellings'] = altSpellings;
     data['region'] = region;
-    //data['subregion'] = subregion;
+    data['subregion'] = subregion;
     if (languages != null) {
-      data['languages'] = languages!.toJson();
+      data['languages'] = languages!;
     }
     if (translations != null) {
       data['translations'] = translations!.toJson();
