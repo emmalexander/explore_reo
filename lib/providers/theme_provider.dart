@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeChanger with ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
@@ -6,7 +7,8 @@ class ThemeChanger with ChangeNotifier {
 
   get themeMode => _themeMode;
 
-  void themeChange() {
+  void themeChange() async {
+    final SharedPreferences _prefs = await SharedPreferences.getInstance();
     if (isDark == true) {
       _themeMode = ThemeMode.light;
       isDark = false;
@@ -15,6 +17,14 @@ class ThemeChanger with ChangeNotifier {
       isDark = true;
       print("object");
     }
+    await _prefs.setBool('isDark', isDark);
+    notifyListeners();
+  }
+
+  initialize() async {
+    final SharedPreferences _pref = await SharedPreferences.getInstance();
+
+    isDark = _pref.getBool('isDark') ?? false;
     notifyListeners();
   }
 }

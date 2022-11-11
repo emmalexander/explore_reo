@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:explore_reo/consts/app_colors.dart';
 import 'package:explore_reo/models/data_model.dart';
+import 'package:explore_reo/models/first_letter_model.dart';
 import 'package:explore_reo/providers/data_provider.dart';
 import 'package:explore_reo/providers/theme_provider.dart';
+import 'package:explore_reo/screens/detail_screen.dart';
 import 'package:explore_reo/services/api_sevices.dart';
 import 'package:explore_reo/widgets/aphabet_scroll_widget.dart';
 import 'package:explore_reo/widgets/text_widget.dart';
@@ -24,7 +26,8 @@ class _MainScreenState extends State<MainScreen> {
   late final TextEditingController _searchTextController;
   late final FocusNode _focusNode;
 
-  List<String?> countryList = [];
+  List<String?> countriesNamesList = [];
+  List<DataModel> dataModelList = [];
   //List<String?> get getCountryList => countryList;
 
   @override
@@ -40,27 +43,33 @@ class _MainScreenState extends State<MainScreen> {
   void getData() async {
     final dataProvider = DataProvider();
     List<DataModel> list = await dataProvider.fetchCountries();
-
+    dataModelList = list;
     //countryList = list.cast<String>();
+
     for (var e in list) {
-      countryList.add(e.name!.common);
+      countriesNamesList.add(e.name!.common);
     }
-    log('The list as String: ${countryList[2]!}');
+    setState(() {});
+    list.sort((a, b) =>
+        a.name!.common!.toLowerCase().compareTo(b.name!.common!.toLowerCase()));
+
+    //Future.delayed(const Duration(seconds: 2));
+    log('6th Country: ${countriesNamesList[5]}');
   }
 
   @override
   void dispose() {
-    if (mounted) {
-      _searchTextController.dispose();
-      _focusNode.dispose();
-    }
-
+    _searchTextController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final countryProv = Provider.of<DataProvider>(context);
+    Future<List> futureList = countryProv.fetchCountries();
+    setState(() {});
+    //final offstage = !item.isShowSuspension;
     return SafeArea(
       child: Scaffold(
         backgroundColor: AppColor(context).scaffoldColor,
@@ -178,24 +187,57 @@ class _MainScreenState extends State<MainScreen> {
               ),
               SizedBox(height: 10.h),
               // FutureBuilder(
-              //     future: countryProv.fetchCountries(),
+              //     future: futureList,
               //     builder: (context, snapshot) {
-              //       if (snapshot.connectionState == ConnectionState.waiting) {
-              //         return const Center(child: CircularProgressIndicator());
-              //       } else if (snapshot.hasError) {
-              //         log(snapshot.error.toString());
+              //       if (snapshot.hasError) {
+              //         return Center(
+              //           child: TextWidget(
+              //               text: 'An error has occurred ${snapshot.error}'),
+              //         );
               //       } else if (snapshot.data == null) {
-              //         log('snapshot data is null');
+              //         return const Center(
+              //           child: TextWidget(text: 'No data found'),
+              //         );
               //       }
-              //return
-              Flexible(
-                child: AlphabetScrollWidget(
-                  items: countryList,
-                  onClickedItem: (String value) {},
-                ),
-              )
-              //;
-              //})
+              //       return
+              dataModelList.isEmpty
+                  ? const TextWidget(text: 'No data')
+                  : Flexible(
+                      child: ListView.builder(
+                        itemCount: dataModelList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            child: ListTile(
+                              leading: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Image.network(
+                                    dataModelList[index].flags!.png!),
+                              ),
+                              title: TextWidget(
+                                  text: dataModelList[index].name!.common!),
+                              subtitle: TextWidget(
+                                text: dataModelList[index].capital!.toString(),
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
+                              onTap: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailScreen(
+                                            model: dataModelList[index])))
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    )
+              // ;
+              // })
             ],
           ),
         ),

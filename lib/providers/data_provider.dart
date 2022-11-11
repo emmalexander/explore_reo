@@ -12,4 +12,9 @@ class DataProvider with ChangeNotifier {
     notifyListeners();
     return _countriesList;
   }
+
+  DataModel findCountryDataBytName({required String? common}) {
+    return _countriesList
+        .firstWhere((element) => element.name!.common == common);
+  }
 }

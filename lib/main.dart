@@ -1,12 +1,18 @@
 import 'package:explore_reo/providers/data_provider.dart';
 import 'package:explore_reo/providers/theme_provider.dart';
+import 'package:explore_reo/screens/detail_screen.dart';
 import 'package:explore_reo/screens/main_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => ThemeChanger(),
+          create: (_) => ThemeChanger()..initialize(),
         ),
         ChangeNotifierProvider(create: (_) => DataProvider()),
       ],
