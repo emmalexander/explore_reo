@@ -12,7 +12,10 @@ class ExpansionTileRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        TextWidget(text: text),
+        TextWidget(
+          text: text,
+          color: AppColor(context).textColor,
+        ),
         Checkbox(
             fillColor: MaterialStateProperty.all(AppColor(context).textColor),
             checkColor: AppColor(context).scaffoldColor,

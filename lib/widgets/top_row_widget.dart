@@ -21,6 +21,7 @@ class TopRowWidget extends StatelessWidget {
               text: text,
               fontSize: 20.sp,
               fontWeight: FontWeight.w700,
+              color: AppColor(context).textColor,
             ),
             GestureDetector(
               onTap: () {

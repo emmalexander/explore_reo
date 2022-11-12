@@ -18,7 +18,7 @@ Things I could have done if I had more time:
 - Group the list by the countries first letter.
 - Unit and Widget test.
 
-[Here](https://appetize.io/app/e4ryf6744lqbr5ws6pqdp2xmou) is the Appetize link.
+[Here](https://appetize.io/app/5qqnfcibuzuu2phnvaniz3od7y) is the Appetize link.
 
 Packages used in this project:
 

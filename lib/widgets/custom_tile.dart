@@ -1,6 +1,8 @@
 import 'package:explore_reo/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../consts/app_colors.dart';
+
 class CustomTile extends StatelessWidget {
   const CustomTile(
       {Key? key,
@@ -31,10 +33,10 @@ class CustomTile extends StatelessWidget {
             ),
           ),
         ),
-        title: TextWidget(text: title),
+        title: TextWidget(text: title, color: AppColor(context).textColor),
         subtitle: TextWidget(
           text: subtitle,
-          color: Colors.grey,
+          color: AppColor(context).subtitleColor,
           fontSize: 14,
         ),
         onTap: onTap,

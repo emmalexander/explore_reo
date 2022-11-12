@@ -99,7 +99,7 @@ class _MainScreenState extends State<MainScreen> {
                   style: GoogleFonts.elsieSwashCaps(
                       fontSize: 25.sp,
                       fontWeight: FontWeight.bold,
-                      color: const Color(0xFFFF6C00)),
+                      color: AppColor.orangeColor),
                 ),
               ],
             ),

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../consts/app_colors.dart';
 
 class TextWidget extends StatelessWidget {
   const TextWidget({
@@ -24,7 +21,7 @@ class TextWidget extends StatelessWidget {
         fontFamily: 'Axiforma',
         fontSize: fontSize,
         fontWeight: fontWeight,
-        color: AppColor(context).textColor,
+        color: color, //AppColor(context).textColor,
       ),
     );
   }
