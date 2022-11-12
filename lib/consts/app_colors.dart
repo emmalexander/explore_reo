@@ -15,11 +15,13 @@ class AppColor {
   Color get scaffoldColor =>
       isDark ? const Color(0xFF000F24) : const Color(0xFFFFFFFF);
   static const Color borderColor = Color(0xFFA9B8D4);
-  Color get textColor => isDark ? Colors.white : Colors.black;
+  Color get textColor => isDark ? Colors.white.withOpacity(.85) : Colors.black;
   Color get exploreColor =>
       isDark ? Colors.grey.shade200 : const Color(0xFF001637);
   Color get hinTextColor =>
       isDark ? Colors.grey.shade200 : Colors.grey.shade500;
   Color get invisibilityColor =>
       isDark ? const Color(0xFF000711) : const Color(0xFF757575);
+  Color get xContainerColor =>
+      isDark ? const Color(0xFF3D4A5D) : const Color(0xFFD6DAE1);
 }

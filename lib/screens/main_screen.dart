@@ -4,15 +4,11 @@ import 'package:explore_reo/providers/data_provider.dart';
 import 'package:explore_reo/providers/theme_provider.dart';
 import 'package:explore_reo/screens/detail_screen.dart';
 import 'package:explore_reo/widgets/custom_tile.dart';
-import 'package:explore_reo/widgets/text_widget.dart';
-import 'package:explore_reo/widgets/top_row_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import '../consts/api_const.dart';
+import '../widgets/filter_row_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -33,21 +29,26 @@ class _MainScreenState extends State<MainScreen> {
   //List<String?> get getCountryList => countryList;
 
   @override
-  void initState() {
-    super.initState();
-    _searchTextController = TextEditingController();
-    _focusNode = FocusNode();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     getData();
     DataProvider().fetchCountries().then((List<DataModel> list) {
       setState(() {
         resultList = list;
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _searchTextController = TextEditingController();
+    _focusNode = FocusNode();
 
     //countryList.add(DataProvider().getCountriesList[0]);
   }
 
-  void getData() async {
+  Future<void> getData() async {
     final dataProvider = DataProvider();
     List<DataModel> list = await dataProvider.fetchCountries();
     dataModelList = list;
@@ -72,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final languagesProv = Provider.of<DataProvider>(context);
+    //final languagesProv = Provider.of<DataProvider>(context);
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -153,148 +154,52 @@ class _MainScreenState extends State<MainScreen> {
                           borderSide: BorderSide.none)),
                 ),
                 SizedBox(height: 15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        showModalBottomSheet(
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (context) {
-                              languagesProv.fetchLanguages();
-                              return BottomSheet(
-                                  onClosing: () {},
-                                  builder: (context) {
-                                    return Container(
-                                      //height: 600.h,
-                                      decoration: BoxDecoration(
-                                          color: AppColor(context)
-                                              .invisibilityColor),
-                                      child: Container(
-                                        //height: 600.h,
-                                        decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                                topRight: Radius.circular(20),
-                                                topLeft: Radius.circular(20))),
-                                        padding: const EdgeInsets.only(
-                                            top: 20,
-                                            bottom: 25,
-                                            left: 20,
-                                            right: 20),
-                                        child: Column(
-                                          children: [
-                                            const TopRowWidget(
-                                                text: 'Languages'),
-                                            Flexible(
-                                              child: ListView.builder(
-                                                  itemCount:
-                                                      languageList.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        TextWidget(
-                                                            text: languageList[
-                                                                index]),
-                                                        Radio(
-                                                            value:
-                                                                languageList[2],
-                                                            groupValue:
-                                                                languageList,
-                                                            onChanged: (val) {
-                                                              setState(() {
-                                                                languageList[
-                                                                        index] =
-                                                                    val!.toString();
-                                                              });
-                                                            }),
-                                                      ],
-                                                    );
-                                                  }),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10.h),
-                        //width: 65.w,
-                        height: 40.h,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1,
-                                color: AppColor.borderColor.withOpacity(.5)),
-                            borderRadius: BorderRadius.circular(5.r)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              CupertinoIcons.globe,
-                              color: AppColor(context).textColor,
-                            ),
-                            SizedBox(width: 4.w),
-                            const TextWidget(text: 'EN')
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.h),
-                      //width: 65.w,
-                      height: 40.h,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1,
-                              color: AppColor.borderColor.withOpacity(.5)),
-                          borderRadius: BorderRadius.circular(5.r)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.filter_alt_outlined,
-                            color: AppColor(context).textColor,
-                          ),
-                          SizedBox(width: 4.w),
-                          const TextWidget(text: 'Filter')
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                const FilterRowWidget(),
                 SizedBox(height: 10.h),
                 dataModelList.isEmpty
-                    ? const TextWidget(text: 'Loading data...')
+                    ? Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircularProgressIndicator(
+                              color: AppColor(context).textColor,
+                            ),
+                          ],
+                        ),
+                      ) //TextWidget(text: 'Loading data...')
                     : query.isNotEmpty
                         ? buildSuggestions(query)
                         : Flexible(
-                            child: ListView.builder(
-                              itemCount: dataModelList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return CustomTile(
-                                  image: dataModelList[index].flags!.png!,
-                                  title: dataModelList[index].name!.common!,
-                                  subtitle: dataModelList[index]
-                                      .capital!
-                                      .toString()
-                                      .replaceAll('[', '')
-                                      .replaceAll(']', ''),
-                                  onTap: () => {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => DetailScreen(
-                                                model: dataModelList[index])))
-                                  },
-                                );
-                              },
+                            child: RefreshIndicator(
+                              strokeWidth: 3,
+                              backgroundColor: AppColor(context).textColor,
+                              color: AppColor(context).scaffoldColor,
+                              displacement: 10.h,
+                              onRefresh: getData,
+                              child: ListView.builder(
+                                itemCount: dataModelList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return CustomTile(
+                                    image: dataModelList[index].flags!.png!,
+                                    title: dataModelList[index].name!.common!,
+                                    subtitle: dataModelList[index]
+                                        .capital!
+                                        .toString()
+                                        .replaceAll('[', '')
+                                        .replaceAll(']', ''),
+                                    onTap: () => {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DetailScreen(
+                                                      model: dataModelList[
+                                                          index])))
+                                    },
+                                  );
+                                },
+                              ),
                             ),
                           )
               ],

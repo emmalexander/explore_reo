@@ -18,13 +18,17 @@ class CustomTile extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 10),
       child: ListTile(
-        leading: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            image,
-            width: 40,
-            height: 35,
-            fit: BoxFit.fitHeight,
+        leading: SizedBox(
+          width: 40,
+          height: 35,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              image,
+              width: 40,
+              height: 35,
+              fit: BoxFit.fitHeight,
+            ),
           ),
         ),
         title: TextWidget(text: title),

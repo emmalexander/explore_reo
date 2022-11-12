@@ -9,7 +9,7 @@ class DataModel {
   //String? status;
   bool? unMember;
   Map<String, dynamic>? currencies;
-  Idd? idd;
+  Map<String, dynamic>? idd;
   List<String>? capital;
   //List<String>? altSpellings;
   String? region;
@@ -79,18 +79,18 @@ class DataModel {
     independent = json['independent'];
     //status = json['status'];
     unMember = json['unMember'];
-    currencies = json['currencies'];
+    currencies = json['currencies'] ?? {};
     // currencies = json['currencies'] != null
     //     ? Currencies.fromJson(json['currencies'])
     //     : null;
-    idd = json['idd'] != null ? Idd.fromJson(json['idd']) : json['unMember'];
+    idd = json['idd'] ?? {};
     capital = json['capital'] == null
         ? []
         : List<String>.from(json['capital'].map((x) => x));
     //altSpellings = json['altSpellings'].cast<String>();
     region = json['region'];
-    subregion = json['subregion'];
-    languages = json['languages'];
+    subregion = json['subregion'] ?? '';
+    languages = json['languages'] ?? {};
     // languages = json['languages'] != null
     //     ? Languages.fromJson(json['languages'])
     //     : null;
@@ -150,7 +150,7 @@ class DataModel {
       data['currencies'] = currencies!;
     }
     if (idd != null) {
-      data['idd'] = idd!.toJson();
+      data['idd'] = idd!;
     }
     data['capital'] = capital;
     //data['altSpellings'] = altSpellings;

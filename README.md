@@ -9,11 +9,23 @@ You can as well search through the list by the country name and capital.
 The Theme switching is handled with the help of a provider class in the providers directory.
 This app can switch between dark and light mode.
 
-[Here](https://appetize.io/app/fwpjva5go6hhavkszfrzwguafq) is the appetizer link.
+Things I could have done if I had more time:
+- Network Exceptions(Properly). But in case of a network issue just swipe down to refresh!
+- Filtering by continents and time zones.
+- Translations.
+- Searching by Region, Subregion, Currency and Language.
+- Better State Management
+- Group the list by the countries first letter.
+- Unit and Widget test.
+
+[Here](https://appetize.io/app/e4ryf6744lqbr5ws6pqdp2xmou) is the Appetize link.
 
 Packages used in this project:
 
 - [Provider Package](https://pub.dev/packages/provider): For State Management.
 - [Shared Preferences](https://pub.dev/packages/shared_preferences): This helps to store the last selected theme before closing the app.
 - [Google Fonts](https://pub.dev/packages/google_fonts): To use google fonts.
+- [Http](https://pub.dev/packages/http): This package handles network access. Parse uri to get data from the API.
 - [Flutter ScreenUtil](https://pub.dev/packages/flutter_screenutil): For UI responsiveness.
+- [Card Swiper](https://pub.dev/packages/card_swiper): This is a Card Swiper package used to swipe between the flag image and the coat of arm image.
+

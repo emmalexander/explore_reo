@@ -18,7 +18,8 @@ class DetailScreen extends StatelessWidget {
     ];
 
     Map languages = model.languages!;
-    Map currencies = model.currencies!;
+    Map? currencies = model.currencies!;
+    Map idds = model.idd!;
     // Map currencyNames = currencies.values.toString() as Map;
 
     return SafeArea(
@@ -109,12 +110,14 @@ class DetailScreen extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                     TextWidget(
-                      text: model.capital!.toString().isEmpty
-                          ? ''
-                          : model.capital
-                              .toString()
-                              .replaceAll('[', '')
-                              .replaceAll(']', ''),
+                      text: model.capital == null
+                          ? 'No Capital'
+                          : model.capital!.isEmpty
+                              ? 'No capital'
+                              : model.capital
+                                  .toString()
+                                  .replaceAll('[', '')
+                                  .replaceAll(']', ''),
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w100,
                     ),
@@ -129,7 +132,9 @@ class DetailScreen extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                     TextWidget(
-                      text: languages.values.toList().first ?? 'None',
+                      text: languages.isEmpty
+                          ? 'No language'
+                          : languages.values.toList().first ?? 'No language',
                       fontSize: 16.sp,
                       //fontWeight: FontWeight.w200,
                     ),
@@ -159,7 +164,9 @@ class DetailScreen extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                     TextWidget(
-                      text: model.subregion!,
+                      text: model.subregion == ''
+                          ? 'No Sub region'
+                          : model.subregion ?? 'No sub region',
                       fontSize: 16.sp,
                       //fontWeight: FontWeight.w200,
                     ),
@@ -189,10 +196,12 @@ class DetailScreen extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                     TextWidget(
-                      text: currencies.values
-                          .toList()
-                          .first['name']
-                          .toString(), //currencies.values.toString(),
+                      text: currencies.isEmpty
+                          ? 'No Currency'
+                          : currencies.values
+                              .toList()
+                              .first['name']
+                              .toString(), //currencies.values.toString(),
                       fontSize: 16.sp,
                       //fontWeight: FontWeight.w200,
                     ),
@@ -237,9 +246,12 @@ class DetailScreen extends StatelessWidget {
                       fontWeight: FontWeight.w800,
                     ),
                     TextWidget(
-                      text: model.idd == null
-                          ? ''
-                          : '${model.idd!.root}${model.idd!.suffixes![0]}',
+                      text: model.idd!.isEmpty
+                          ? 'No dialling code'
+                          : model.idd == null
+                              ? 'No dialling code'
+                              : '${idds['root'].toString()}${idds['suffixes'].toString()}',
+                      //: '${model.idd!.root}${model.idd!.suffixes![0]}',
                       fontSize: 16.sp,
                       //fontWeight: FontWeight.w200,
                     ),

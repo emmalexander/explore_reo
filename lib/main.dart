@@ -1,6 +1,5 @@
 import 'package:explore_reo/providers/data_provider.dart';
 import 'package:explore_reo/providers/theme_provider.dart';
-import 'package:explore_reo/screens/detail_screen.dart';
 import 'package:explore_reo/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
