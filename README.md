@@ -9,7 +9,7 @@ You can as well search through the list by the country name and capital.
 The Theme switching is handled with the help of a provider class in the providers directory.
 This app can switch between dark and light mode.
 
-[Here]() is the appetizer link.
+[Here](https://appetize.io/app/oprc4atf5wsew2ddsh66dq7vhq) is the appetizer link.
 
 Packages used in this project:
 
