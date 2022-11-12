@@ -31,6 +31,7 @@ class DetailScreen extends StatelessWidget {
             text: model.name!.common!,
             fontSize: 20.sp,
             fontWeight: FontWeight.w700,
+            color: AppColor(context).textColor,
           ),
           elevation: 0,
           backgroundColor: AppColor(context).scaffoldColor,
@@ -78,11 +79,13 @@ class DetailScreen extends StatelessWidget {
                       text: 'Population: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: model.population!.toString(),
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w100,
+                      color: AppColor(context).textColor,
                     ),
                   ],
                 ),
@@ -93,10 +96,12 @@ class DetailScreen extends StatelessWidget {
                       text: 'Region: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: '${model.region}',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -108,6 +113,7 @@ class DetailScreen extends StatelessWidget {
                       text: 'Capital: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: model.capital == null
@@ -120,6 +126,7 @@ class DetailScreen extends StatelessWidget {
                                   .replaceAll(']', ''),
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w100,
+                      color: AppColor(context).textColor,
                     ),
                   ],
                 ),
@@ -130,12 +137,14 @@ class DetailScreen extends StatelessWidget {
                       text: 'Official language: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: languages.isEmpty
                           ? 'No language'
                           : languages.values.toList().first ?? 'No language',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -147,10 +156,12 @@ class DetailScreen extends StatelessWidget {
                       text: 'Independence: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: model.independent! ? 'Yes' : 'No',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -162,12 +173,14 @@ class DetailScreen extends StatelessWidget {
                       text: 'Sub region: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: model.subregion == ''
                           ? 'No Sub region'
                           : model.subregion ?? 'No sub region',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -179,10 +192,12 @@ class DetailScreen extends StatelessWidget {
                       text: 'Area: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: '${model.area.toString()} km2',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -194,6 +209,7 @@ class DetailScreen extends StatelessWidget {
                       text: 'Currency: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: currencies.isEmpty
@@ -203,6 +219,7 @@ class DetailScreen extends StatelessWidget {
                               .first['name']
                               .toString(), //currencies.values.toString(),
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -214,10 +231,12 @@ class DetailScreen extends StatelessWidget {
                       text: 'Start of week: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: model.startOfWeek!,
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -229,10 +248,12 @@ class DetailScreen extends StatelessWidget {
                       text: 'Time zone: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: '	${model.timezones![0]}',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -244,15 +265,17 @@ class DetailScreen extends StatelessWidget {
                       text: 'Dialling code: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: model.idd!.isEmpty
                           ? 'No dialling code'
                           : model.idd == null
                               ? 'No dialling code'
-                              : '${idds['root'].toString()}${idds['suffixes'].toString()}',
+                              : '${idds['root'].toString()}${idds['suffixes'][0].toString()}',
                       //: '${model.idd!.root}${model.idd!.suffixes![0]}',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
@@ -264,10 +287,12 @@ class DetailScreen extends StatelessWidget {
                       text: 'Driving side: ',
                       fontSize: 17.sp,
                       fontWeight: FontWeight.w800,
+                      color: AppColor(context).textColor,
                     ),
                     TextWidget(
                       text: '${model.car!.side}',
                       fontSize: 16.sp,
+                      color: AppColor(context).textColor,
                       //fontWeight: FontWeight.w200,
                     ),
                   ],
