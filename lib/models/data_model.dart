@@ -83,7 +83,7 @@ class DataModel {
     // currencies = json['currencies'] != null
     //     ? Currencies.fromJson(json['currencies'])
     //     : null;
-    idd = json['idd'] != null ? Idd.fromJson(json['idd']) : null;
+    idd = json['idd'] != null ? Idd.fromJson(json['idd']) : json['unMember'];
     capital = json['capital'] == null
         ? []
         : List<String>.from(json['capital'].map((x) => x));

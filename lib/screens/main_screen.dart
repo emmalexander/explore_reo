@@ -5,11 +5,14 @@ import 'package:explore_reo/providers/theme_provider.dart';
 import 'package:explore_reo/screens/detail_screen.dart';
 import 'package:explore_reo/widgets/custom_tile.dart';
 import 'package:explore_reo/widgets/text_widget.dart';
+import 'package:explore_reo/widgets/top_row_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../consts/api_const.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -69,6 +72,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final languagesProv = Provider.of<DataProvider>(context);
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -155,28 +159,65 @@ class _MainScreenState extends State<MainScreen> {
                     GestureDetector(
                       onTap: () {
                         showModalBottomSheet(
+                            isScrollControlled: true,
                             context: context,
                             builder: (context) {
+                              languagesProv.fetchLanguages();
                               return BottomSheet(
                                   onClosing: () {},
                                   builder: (context) {
                                     return Container(
+                                      //height: 600.h,
                                       decoration: BoxDecoration(
                                           color: AppColor(context)
                                               .invisibilityColor),
                                       child: Container(
+                                        //height: 600.h,
                                         decoration: const BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.only(
                                                 topRight: Radius.circular(20),
                                                 topLeft: Radius.circular(20))),
                                         padding: const EdgeInsets.only(
-                                            top: 10,
+                                            top: 20,
                                             bottom: 25,
-                                            left: 10,
-                                            right: 10),
+                                            left: 20,
+                                            right: 20),
                                         child: Column(
-                                          children: [Row()],
+                                          children: [
+                                            const TopRowWidget(
+                                                text: 'Languages'),
+                                            Flexible(
+                                              child: ListView.builder(
+                                                  itemCount:
+                                                      languageList.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        TextWidget(
+                                                            text: languageList[
+                                                                index]),
+                                                        Radio(
+                                                            value:
+                                                                languageList[2],
+                                                            groupValue:
+                                                                languageList,
+                                                            onChanged: (val) {
+                                                              setState(() {
+                                                                languageList[
+                                                                        index] =
+                                                                    val!.toString();
+                                                              });
+                                                            }),
+                                                      ],
+                                                    );
+                                                  }),
+                                            )
+                                          ],
                                         ),
                                       ),
                                     );
@@ -230,7 +271,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 SizedBox(height: 10.h),
                 dataModelList.isEmpty
-                    ? const TextWidget(text: 'No data yet')
+                    ? const TextWidget(text: 'Loading data...')
                     : query.isNotEmpty
                         ? buildSuggestions(query)
                         : Flexible(
