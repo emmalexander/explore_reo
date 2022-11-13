@@ -73,6 +73,17 @@ class _MainScreenState extends State<MainScreen> {
     //log('6th Country: ${countriesNamesList[5]}');
   }
 
+  // void getCountryByContinent() {
+  //   if (DataProvider().getIsChecked0 == true) {
+  //     dataModelList.clear();
+  //     List<DataModel> africanCountries = DataProvider()
+  //         .fetchCountriesByContinent(continent: 'Africa', list: dataModelList);
+  //     dataModelList = africanCountries;
+  //     print(africanCountries[0]);
+  //     setState(() {});
+  //   }
+  // }
+
   @override
   void dispose() {
     _searchTextController.dispose();
@@ -116,6 +127,7 @@ class _MainScreenState extends State<MainScreen> {
               return IconButton(
                   onPressed: () {
                     themeProv.themeChange();
+                    //getCountryByContinent();
                   },
                   icon: Icon(
                     themeProv.isDark

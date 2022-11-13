@@ -1,9 +1,11 @@
 import 'package:explore_reo/consts/api_const.dart';
+import 'package:explore_reo/providers/data_provider.dart';
 import 'package:explore_reo/widgets/text_widget.dart';
 import 'package:explore_reo/widgets/top_row_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import '../consts/app_colors.dart';
 import 'expansion_tile_row.dart';
 
@@ -122,26 +124,29 @@ class FilterRowWidget extends StatelessWidget {
                           child: const TopRowWidget(text: 'Filter'),
                         ),
                         SizedBox(height: 10.h),
-                        ExpansionTile(
-                          childrenPadding:
-                              EdgeInsets.only(left: 15.w, right: 5.w),
-                          collapsedIconColor: AppColor(context).textColor,
-                          title: TextWidget(
-                            text: 'Continent',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16.sp,
-                            color: AppColor(context).textColor,
-                          ),
-                          children: const [
-                            ExpansionTileRow(text: 'Africa'),
-                            ExpansionTileRow(text: 'Antarctica'),
-                            ExpansionTileRow(text: 'Asia'),
-                            ExpansionTileRow(text: 'Australia'),
-                            ExpansionTileRow(text: 'Europe'),
-                            ExpansionTileRow(text: 'North America'),
-                            ExpansionTileRow(text: 'South America'),
-                          ],
-                        ),
+                        Consumer<DataProvider>(
+                            builder: (context, filterProv, child) {
+                          return ExpansionTile(
+                            childrenPadding:
+                                EdgeInsets.only(left: 15.w, right: 5.w),
+                            collapsedIconColor: AppColor(context).textColor,
+                            title: TextWidget(
+                              text: 'Continent',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.sp,
+                              color: AppColor(context).textColor,
+                            ),
+                            children: const [
+                              ExpansionTileRow(text: 'Africa'),
+                              ExpansionTileRow(text: 'Antarctica'),
+                              ExpansionTileRow(text: 'Asia'),
+                              ExpansionTileRow(text: 'Australia'),
+                              ExpansionTileRow(text: 'Europe'),
+                              ExpansionTileRow(text: 'North America'),
+                              ExpansionTileRow(text: 'South America'),
+                            ],
+                          );
+                        }),
                         SingleChildScrollView(
                           child: ExpansionTile(
                             childrenPadding:
