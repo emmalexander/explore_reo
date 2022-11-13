@@ -83,139 +83,135 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     //final countriesProv = Provider.of<DataProvider>(context);
-    return SafeArea(
-      child: GestureDetector(
-        onTap: () {
-          _focusNode.unfocus();
-          resultList.clear();
-        },
-        child: Scaffold(
+    return GestureDetector(
+      onTap: () {
+        _focusNode.unfocus();
+        resultList.clear();
+      },
+      child: Scaffold(
+        backgroundColor: AppColor(context).scaffoldColor,
+        appBar: AppBar(
+          elevation: 0,
           backgroundColor: AppColor(context).scaffoldColor,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: AppColor(context).scaffoldColor,
-            title: Wrap(
-              children: [
-                Text(
-                  'Explore',
-                  style: GoogleFonts.elsieSwashCaps(
-                      fontSize: 25.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColor(context).exploreColor),
-                ),
-                Text(
-                  '.',
-                  style: GoogleFonts.elsieSwashCaps(
-                      fontSize: 25.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColor.orangeColor),
-                ),
-              ],
-            ),
-            actions: [
-              Consumer<ThemeChanger>(builder: (context, themeProv, child) {
-                return IconButton(
-                    onPressed: () {
-                      themeProv.themeChange();
-                    },
-                    icon: Icon(
-                      themeProv.isDark
-                          ? Icons.nightlight_outlined
-                          : Icons.wb_sunny_outlined,
-                      color: AppColor(context).textColor,
-                    ));
-              })
+          title: Wrap(
+            children: [
+              Text(
+                'Explore',
+                style: GoogleFonts.elsieSwashCaps(
+                    fontSize: 25.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor(context).exploreColor),
+              ),
+              Text(
+                '.',
+                style: GoogleFonts.elsieSwashCaps(
+                    fontSize: 25.sp,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.orangeColor),
+              ),
             ],
           ),
-          body: Padding(
-            padding: EdgeInsets.all(15.w),
-            child: Column(
-              children: [
-                TextField(
-                  textInputAction: TextInputAction.done,
-                  style: TextStyle(color: AppColor(context).textColor),
-                  textAlign: TextAlign.center,
-                  controller: _searchTextController,
-                  focusNode: _focusNode,
-                  onChanged: (val) {
-                    setState(() {
-                      query = val;
-                    });
+          actions: [
+            Consumer<ThemeChanger>(builder: (context, themeProv, child) {
+              return IconButton(
+                  onPressed: () {
+                    themeProv.themeChange();
                   },
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(5.w),
-                      hintText: 'Search Country',
-                      hintStyle: TextStyle(
-                          fontFamily: 'Axiforma',
-                          fontWeight: FontWeight.w300,
-                          color: AppColor(context).hinTextColor
-                          //fontSize: 16,
+                  icon: Icon(
+                    themeProv.isDark
+                        ? Icons.nightlight_outlined
+                        : Icons.wb_sunny_outlined,
+                    color: AppColor(context).textColor,
+                  ));
+            })
+          ],
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(15.w),
+          child: Column(
+            children: [
+              TextField(
+                textInputAction: TextInputAction.done,
+                style: TextStyle(color: AppColor(context).textColor),
+                textAlign: TextAlign.center,
+                controller: _searchTextController,
+                focusNode: _focusNode,
+                onChanged: (val) {
+                  setState(() {
+                    query = val;
+                  });
+                },
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(5.w),
+                    hintText: 'Search Country',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Axiforma',
+                        fontWeight: FontWeight.w300,
+                        color: AppColor(context).hinTextColor
+                        //fontSize: 16,
 
-                          ),
-                      filled: true,
-                      fillColor: AppColor(context).searchBarColor,
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: AppColor(context).textColor,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.r),
-                          borderSide: BorderSide.none)),
-                ),
-                SizedBox(height: 15.h),
-                const FilterRowWidget(),
-                SizedBox(height: 10.h),
-                dataModelList.isEmpty
-                    ? Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            CircularProgressIndicator(
-                              color: AppColor(context).textColor,
-                            ),
-                          ],
                         ),
-                      ) //TextWidget(text: 'Loading data...')
-                    : query.isNotEmpty
-                        ? buildSuggestions(query)
-                        : Flexible(
-                            child: RefreshIndicator(
-                              strokeWidth: 3,
-                              backgroundColor: AppColor(context).textColor,
-                              color: AppColor(context).scaffoldColor,
-                              displacement: 10.h,
-                              onRefresh: getData,
-                              child: ListView.builder(
-                                itemCount: dataModelList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return CustomTile(
-                                    image: dataModelList[index].flags!.png!,
-                                    title: dataModelList[index].name!.common!,
-                                    subtitle:
-                                        dataModelList[index].capital!.isEmpty
-                                            ? 'No capital'
-                                            : dataModelList[index]
-                                                .capital!
-                                                .toString()
-                                                .replaceAll('[', '')
-                                                .replaceAll(']', ''),
-                                    onTap: () => {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DetailScreen(
-                                                      model: dataModelList[
-                                                          index])))
-                                    },
-                                  );
-                                },
-                              ),
+                    filled: true,
+                    fillColor: AppColor(context).searchBarColor,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: AppColor(context).textColor,
+                    ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.r),
+                        borderSide: BorderSide.none)),
+              ),
+              SizedBox(height: 15.h),
+              const FilterRowWidget(),
+              SizedBox(height: 10.h),
+              dataModelList.isEmpty
+                  ? Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(
+                            color: AppColor(context).textColor,
+                          ),
+                        ],
+                      ),
+                    ) //TextWidget(text: 'Loading data...')
+                  : query.isNotEmpty
+                      ? buildSuggestions(query)
+                      : Flexible(
+                          child: RefreshIndicator(
+                            strokeWidth: 3,
+                            backgroundColor: AppColor(context).textColor,
+                            color: AppColor(context).scaffoldColor,
+                            displacement: 10.h,
+                            onRefresh: getData,
+                            child: ListView.builder(
+                              itemCount: dataModelList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return CustomTile(
+                                  image: dataModelList[index].flags!.png!,
+                                  title: dataModelList[index].name!.common!,
+                                  subtitle:
+                                      dataModelList[index].capital!.isEmpty
+                                          ? 'No capital'
+                                          : dataModelList[index]
+                                              .capital!
+                                              .toString()
+                                              .replaceAll('[', '')
+                                              .replaceAll(']', ''),
+                                  onTap: () => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailScreen(
+                                                model: dataModelList[index])))
+                                  },
+                                );
+                              },
                             ),
-                          )
-              ],
-            ),
+                          ),
+                        )
+            ],
           ),
         ),
       ),

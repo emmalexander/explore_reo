@@ -18,6 +18,12 @@ class DataProvider with ChangeNotifier {
         .firstWhere((element) => element.name!.common == common);
   }
 
+  List<DataModel> fetchCountriesByRegion({required String? region}) {
+    return _countriesList
+        .where((element) => element.continents!.first == region)
+        .toList();
+  }
+
   // List<String> languagesList = [];
   //
   // List<String> get getLanguagesList => languagesList;
