@@ -21,12 +21,14 @@ class _MainScreenState extends State<MainScreen> {
   late final TextEditingController _searchTextController;
   late final FocusNode _focusNode;
 
-  List<String?> countriesNamesList = [];
+  // List<String?> countriesNamesList = [];
+  // List<FirstLetterModel> distinctCountriesFirstLetter = [];
   List<DataModel> dataModelList = [];
 
   List<DataModel> resultList = [];
   String query = '';
   //List<String?> get getCountryList => countryList;
+  //List<String> firstLettersList = [];
 
   @override
   void didChangeDependencies() {
@@ -54,13 +56,20 @@ class _MainScreenState extends State<MainScreen> {
     dataModelList = list;
     //countryList = list.cast<String>();
 
-    for (var e in list) {
-      countriesNamesList.add(e.name!.common);
-    }
+    // for (var e in list) {
+    //   countriesNamesList.add(e.name!.common);
+    // }
+    //
+    // List<FirstLetterModel> firstLetters = countriesNamesList
+    //     .map((e) => FirstLetterModel(firstLetter: e![0].toUpperCase()))
+    //     .toList();
+    // distinctCountriesFirstLetter = firstLetters.toSet().toList();
+
     setState(() {});
     list.sort((a, b) =>
         a.name!.common!.toLowerCase().compareTo(b.name!.common!.toLowerCase()));
 
+    //firstLettersList =distinctFirstLetter;
     //log('6th Country: ${countriesNamesList[5]}');
   }
 
@@ -73,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final languagesProv = Provider.of<DataProvider>(context);
+    //final countriesProv = Provider.of<DataProvider>(context);
     return SafeArea(
       child: GestureDetector(
         onTap: () {
@@ -183,11 +192,14 @@ class _MainScreenState extends State<MainScreen> {
                                   return CustomTile(
                                     image: dataModelList[index].flags!.png!,
                                     title: dataModelList[index].name!.common!,
-                                    subtitle: dataModelList[index]
-                                        .capital!
-                                        .toString()
-                                        .replaceAll('[', '')
-                                        .replaceAll(']', ''),
+                                    subtitle:
+                                        dataModelList[index].capital!.isEmpty
+                                            ? 'No capital'
+                                            : dataModelList[index]
+                                                .capital!
+                                                .toString()
+                                                .replaceAll('[', '')
+                                                .replaceAll(']', ''),
                                     onTap: () => {
                                       Navigator.push(
                                           context,

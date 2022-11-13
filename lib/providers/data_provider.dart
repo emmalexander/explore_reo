@@ -13,14 +13,28 @@ class DataProvider with ChangeNotifier {
     return _countriesList;
   }
 
-  DataModel findCountryDataBytName({required String? common}) {
+  DataModel findCountryDataByName({required String? common}) {
     return _countriesList
         .firstWhere((element) => element.name!.common == common);
   }
 
-  List<String> languagesList = [];
+  // List<String> languagesList = [];
+  //
+  // List<String> get getLanguagesList => languagesList;
 
-  List<String> get getLanguagesList => languagesList;
+  // List<String> _countriesNamesList = [];
+  // List<String> get getCountriesName => _countriesNamesList;
+  // Future<List<String>> fetchCountriesName() async {
+  //   List<DataModel> dataModelList =
+  //       await fetchCountries().then((value) => value.toList());
+  //   for (var v in dataModelList) {
+  //     String? countryName = v.name!.common;
+  //     _countriesNamesList.add(countryName!);
+  //   }
+  //   //LinkedHashSet<String>.from(languagesList).toList();
+  //   notifyListeners();
+  //   return _countriesNamesList;
+  // }
 
   // Future<List<String>> fetchLanguages() async {
   //   List<DataModel> dataModelList =
